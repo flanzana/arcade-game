@@ -29,7 +29,6 @@ Enemy.prototype.update = function(dt) {
 
     // --Handles collision with the Player (you need to implement)
 
-
 };
 
 // Draw the enemy on the screen, required method for game
@@ -37,8 +36,8 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 
     //when enemy goes off screen on right, put it back on the beginning
-    if (this.x > 600) {
-        this.x = -100;
+    if (this.x > 505) {
+        this.x = -101;
     }
 };
 
@@ -75,10 +74,23 @@ and move the player according to that input. In particular:
 - If the player reaches the water the game should be reset by moving the player 
   back to the initial location (you can write a separate reset Player method to handle that).
 */
+
+//the "downest" y 400, "uppest" y -15 (400-83*5), "leftest" x 0 and "rightest" x 404 (4*101)
 Player.prototype.handleInput = function(move) {
-
+    if ((move === 'left') && (this.x > 0)) {
+        this.x -= 101;
+    } else if ((move === 'right') && (this.x < 404)) {
+        this.x += 101;
+    } else if ((move === 'up') && (this.y > -15)) {
+        this.y -= 83;
+    } else if ((move === 'down') && (this.y < 400)) {
+        this.y += 83;
+    } else {
+        // when on the edge, let coordinates stay the same
+        this.x = this.x;
+        this.y = this.y;
+    }
 };
-
 
 // ------------------------------------------------------------
 // Now instantiate your objects.
@@ -86,13 +98,13 @@ Player.prototype.handleInput = function(move) {
 // Place the player object in a variable called player
 
 // --Creating a new Player object
-var player = new Player(200, 400);
+var player = new Player(202, 400);
 
 // --Creating several new Enemies objects and placing them in an array called allEnemies
-var enemy1 = new Enemy(-100, 55, 80);
-var enemy2 = new Enemy(-400, 55, 80);
-var enemy3 = new Enemy(0, 140, 120);
-var enemy4 = new Enemy(-300, 225, 100);
+var enemy1 = new Enemy(-100, 62, 80);
+var enemy2 = new Enemy(-400, 62, 80);
+var enemy3 = new Enemy(0, 145, 120);
+var enemy4 = new Enemy(-300, 228, 100);
 var allEnemies = [enemy1, enemy2, enemy3, enemy4];
 
 
