@@ -24,8 +24,13 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     
     // --Updates the Enemy location (you need to implement)
-    //enemy will move on x coordinate depending on speed
-    this.x += this.v * dt;  
+    //enemy will change x coordinate depending on speed, while y coordinate stays always the same
+    this.x += this.v * dt;
+
+    //when enemy goes off screen on right, put it back on the beginning
+    if (this.x > 505) {
+        this.x = -101;
+    }
 
     // --Handles collision with the Player (you need to implement)
 
@@ -34,11 +39,6 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-
-    //when enemy goes off screen on right, put it back on the beginning
-    if (this.x > 505) {
-        this.x = -101;
-    }
 };
 
 
@@ -65,30 +65,30 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-/* --The handleInput method, which should receive user input, allowedKeys (the key which was pressed)
-and move the player according to that input. In particular:
-- Left key should move the player to the left, right key to the right, 
-  up should move the player up and down should move the player down.
-- Recall that the player cannot move off screen (so you will need to 
-  check for that and handle appropriately).
-- If the player reaches the water the game should be reset by moving the player 
-  back to the initial location (you can write a separate reset Player method to handle that).
-*/
-
-//the "downest" y 400, "uppest" y -15 (400-83*5), "leftest" x 0 and "rightest" x 404 (4*101)
+// --The handleInput method, which should receive user input, allowedKeys (the key which was pressed) and move the player according to that input.
 Player.prototype.handleInput = function(move) {
-    if ((move === 'left') && (this.x > 0)) {
+    // one cell is 101 width and 83 height: the most bottom y 400, top y -15 (400-83*5), left x 0 and right x 404 (4*101)
+    // when player in water (this.y > 0), it not possible to move to any direction
+    if ((move === 'left') && (this.x > 0) && (this.y > 0)) {
         this.x -= 101;
-    } else if ((move === 'right') && (this.x < 404)) {
+    } else if ((move === 'right') && (this.x < 404) && (this.y > 0)) {
         this.x += 101;
     } else if ((move === 'up') && (this.y > -15)) {
         this.y -= 83;
-    } else if ((move === 'down') && (this.y < 400)) {
+    } else if ((move === 'down') && (this.y < 400) && (this.y > 0)) {
         this.y += 83;
     } else {
         // when on the edge, let coordinates stay the same
         this.x = this.x;
         this.y = this.y;
+    }
+    
+    // when player reaches water, move player back to initial location
+    if (this.y === -15) {
+        setTimeout(function() {
+            player.x = 202;
+            player.y = 400;
+        }, 500);
     }
 };
 
