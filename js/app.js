@@ -1,9 +1,6 @@
-// ---------------------------- E N E M I E S --------------------------------
+// ------------------------------------ E N E M I E S ----------------------------------------
 // Enemies our player must avoid
 var Enemy = function(x, y, v) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -19,10 +16,6 @@ var Enemy = function(x, y, v) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    
     // --Updates the Enemy location (you need to implement)
     //enemy will change x coordinate depending on speed, while y coordinate stays always the same
     this.x += this.v * dt;
@@ -33,7 +26,7 @@ Enemy.prototype.update = function(dt) {
     }
 
     // --Handles collision with the Player (you need to implement)
-
+    collisionWithPlayer();
 };
 
 // Draw the enemy on the screen, required method for game
@@ -41,11 +34,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
-// ---------------------------- P L A Y E R --------------------------------
-// Now write your own player class
-// This class requires an update(), render() and a handleInput() method.
-
+// ------------------------------------ P L A Y E R ----------------------------------------
 var Player = function(x, y) {
     // --Loading the image by setting this.sprite to the appropriate image in the image folder
     this.sprite = 'images/char-boy.png';
@@ -57,7 +46,13 @@ var Player = function(x, y) {
 
 // --The update method for the Player (can be similar to the one for the Enemy)
 Player.prototype.update = function() {
-
+    // when player reaches water, move player back to initial location
+    if (this.y === -15) {
+        setTimeout(function() {
+            player.x = 202;
+            player.y = 400;
+        }, 500);
+    }
 };
 
 // --The render method for the Player (use the code from the render method for the Enemy)
@@ -82,31 +77,37 @@ Player.prototype.handleInput = function(move) {
         this.x = this.x;
         this.y = this.y;
     }
-    
-    // when player reaches water, move player back to initial location
-    if (this.y === -15) {
-        setTimeout(function() {
-            player.x = 202;
-            player.y = 400;
-        }, 500);
-    }
 };
 
-// ------------------------------------------------------------
-// Now instantiate your objects.
+// ----------------------------------------------------------------------------
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-// --Creating a new Player object
 var player = new Player(202, 400);
 
-// --Creating several new Enemies objects and placing them in an array called allEnemies
-var enemy1 = new Enemy(-100, 62, 80);
-var enemy2 = new Enemy(-400, 62, 80);
-var enemy3 = new Enemy(0, 145, 120);
-var enemy4 = new Enemy(-300, 228, 100);
+// y coordinates: 400 - 317 - 234 - 151 - 68 - -15
+var enemy1 = new Enemy(-100, 68, 80);
+var enemy2 = new Enemy(-400, 68, 80);
+var enemy3 = new Enemy(0, 151, 120);
+var enemy4 = new Enemy(-300, 234, 100);
 var allEnemies = [enemy1, enemy2, enemy3, enemy4];
 
+
+// --Handles collision Enemy with the Player (you need to implement)
+// help from https://stackoverflow.com/questions/2440377/javascript-collision-detection
+function collisionWithPlayer() {
+    allEnemies.forEach(function(enemy) {
+        var xd = player.x - enemy.x;
+        var yd = player.y - enemy.y;
+        var w = 73;
+
+        // when distance between is too small, bug hits player and player gets returned to initial position
+        if (xd * xd + yd * yd <= w * w) {
+            player.x = 202;
+            player.y = 400;
+        }
+    })
+}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
