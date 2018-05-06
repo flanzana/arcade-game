@@ -25,7 +25,7 @@ footer {
     display: flex;
     justify-content: space-between;
 }
-
+/*
 .hearts {
     margin: 0;
     padding: 0;
@@ -38,10 +38,15 @@ footer {
     display: inline-block;
     color: Red;
 }
+*/
+.fa-heart {
+    color: Red;
+}
 
 
 .instructions {
 	border-top: 1px solid White;
+    padding: 0 30px;
 }
 .inst {
 	font-size: 0.8em;
