@@ -52,6 +52,7 @@ Player.prototype.update = function() {
         player.y = 400;
         winCount = winCount + 1;
         console.log(`Win: ${winCount}`);
+        document.getElementById("moves").innerHTML = winCount;
     }
 
     // for each reaching water, you win. when you win 10 times in a row, you win the game
@@ -60,6 +61,8 @@ Player.prototype.update = function() {
             alert("Congratulations, you are a master of this game! Play again?");
             lifeCount = 3;
             winCount = 0;
+            document.getElementById("moves").innerHTML = winCount;
+            document.getElementById("lajf").innerHTML = lifeCount;
         }
     }, 500);
 };
@@ -119,17 +122,39 @@ function collisionWithPlayer() {
 
             // for each collision, you lost one life. when you lose all 3 lives, game over
             lifeCount -= 1;
+            document.getElementById("lajf").innerHTML = lifeCount;
+            //removeLife();
             console.log(`Lives: ${lifeCount}`);
             setTimeout(function() {
                 if (lifeCount === 0) {
                     alert("Sorry, you lost all your lives. Play again?");
                     lifeCount = 3;
                     winCount = 0;
+                    document.getElementById("moves").innerHTML = winCount;
+                    document.getElementById("lajf").innerHTML = lifeCount;
+
                 }
             }, 500);
         }
     })
 }
+
+/*
+// lives
+function removeLife() {
+    if (lifeCount == 2) {
+        document.querySelector(".fa-heart:last-of-type").classList.remove("fa-heart");
+    } else if (lifeCount == 1) {
+        document.querySelector(".fa-heart:last-of-type").classList.remove("fa-heart");
+    } else if (lifeCount == 0) {
+        document.querySelector(".fa-heart:last-of-type").classList.remove("fa-heart");
+    }
+}
+
+function resetLife() {
+    document.querySelector(".fa-heart:last-of-type").classList.append("fa-heart");
+}
+*/
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
