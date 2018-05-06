@@ -92,6 +92,8 @@ var enemy4 = new Enemy(-300, 234, 160);
 var enemy5 = new Enemy(-400, 317, 100);
 var allEnemies = [enemy1, enemy3, enemy4, enemy5];
 
+var lifeCount = 3;
+var winCount = 0;
 
 // --Handles collision Enemy with the Player (you need to implement)
 // help from https://stackoverflow.com/questions/2440377/javascript-collision-detection
@@ -105,6 +107,17 @@ function collisionWithPlayer() {
         if (xd * xd + yd * yd <= w * w) {
             player.x = 202;
             player.y = 400;
+
+            // for each collision, you lost one life. when you lose all 3 lives, game over
+            lifeCount -= 1;
+            console.log(`Lives: ${lifeCount}`);
+            setTimeout(function() {
+                if (lifeCount === 0) {
+                    alert("Sorry, you lost all your lives. Play again?");
+                    lifeCount = 3;
+                    winCount = 0;
+                }
+            }, 500);
         }
     })
 }
