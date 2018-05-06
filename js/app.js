@@ -48,11 +48,20 @@ var Player = function(x, y) {
 Player.prototype.update = function() {
     // when player reaches water, move player back to initial location
     if (this.y === -15) {
-        setTimeout(function() {
-            player.x = 202;
-            player.y = 400;
-        }, 500);
+        player.x = 202;
+        player.y = 400;
+        winCount = winCount + 1;
+        console.log(`Win: ${winCount}`);
     }
+
+    // for each reaching water, you win. when you win 10 times in a row, you win the game
+    setTimeout(function() {
+        if (winCount === 3) {
+            alert("Congratulations, you are a master of this game! Play again?");
+            lifeCount = 3;
+            winCount = 0;
+        }
+    }, 500);
 };
 
 // --The render method for the Player (use the code from the render method for the Enemy)
