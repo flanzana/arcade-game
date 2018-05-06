@@ -57,7 +57,7 @@ Player.prototype.update = function() {
 
     // for each reaching water, you win. when you win 10 times in a row, you win the game
     setTimeout(function() {
-        if (winCount === 3) {
+        if (winCount === 10) {
             alert("Congratulations, you are a master of this game! Play again?");
             lifeCount = 3;
             winCount = 0;
@@ -98,11 +98,12 @@ Player.prototype.handleInput = function(move) {
 var player = new Player(202, 400);
 
 // y coordinates: 400 - 317 - 234 - 151 - 68 - -15
-var enemy1 = new Enemy(-100, 68, 90);
-var enemy3 = new Enemy(0, 151, 120);
-var enemy4 = new Enemy(-300, 234, 160);
-var enemy5 = new Enemy(-400, 317, 100);
-var allEnemies = [enemy1, enemy3, enemy4, enemy5];
+var enemy1 = new Enemy(-404, 68, 120);
+var enemy2 = new Enemy(-101, 151, 80);
+var enemy3 = new Enemy(-202, 151, 80);
+var enemy4 = new Enemy(-303, 234, 160);
+var enemy5 = new Enemy(0, 317, 100);
+var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
 
 var lifeCount = 3;
 var winCount = 0;
