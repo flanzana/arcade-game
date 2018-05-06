@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Effective JavaScript: Frogger</title>
-    <link rel="stylesheet" href="css/style.css">
+	<meta charset="UTF-8">
+	<title>Effective JavaScript: Frogger</title>
+	<link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+	<link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <script src="js/resources.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/engine.js"></script>
+	<main>
+		<script src="js/resources.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/engine.js"></script>
+	</main>
+
+	<footer>
+		<div class="score-panel">
+        	<div class="heart-cont">
+				Lives: 
+				<ul class="hearts">
+        		  <li><i class="fa fa-heart"></i></li>
+        		  <li><i class="fa fa-heart"></i></li>
+        		  <li><i class="fa fa-heart"></i></li>
+                </ul>
+            </div>
+
+        	<div class="moves-cont">
+                Water reached: <span id="moves">0</span>
+            </div>
+        </div>
+
+        <div class="instructions">
+			<h3>How to play a game?</h3>
+
+			<div class="inst">
+				<ul>
+					<li>The goal of the player is to reach the water, without colliding into any one of the enemies.</li>
+					<li>The player can move left, right, up and down.</li>
+					<li>When colliding into the enemy, player loses one life. When player loses all three lives, the game is over.</li>
+					<li>When the player reaches water 10 times, player wins the game.</li>
+				</ul>
+			</div>
+		</div>
+    </footer>
 </body>
 </html>

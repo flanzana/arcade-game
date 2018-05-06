@@ -1,3 +1,49 @@
 body {
     text-align: center;
+    font-family: 'Coda', cursive;
+    align-items: center;
+    background-color: #202020;
+    color: White;
+}
+
+main {
+	margin: 0;
+	padding: 0;
+}
+
+/* ------------------ Styles for the Score Panel ------------------ */
+footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.score-panel {
+    text-align: left;
+    width: 380px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.hearts {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.hearts li {
+    list-style: none;
+    display: inline-block;
+    color: Red;
+}
+
+
+.instructions {
+	border-top: 1px solid White;
+}
+.inst {
+	font-size: 0.8em;
+	text-align: left;
 }
