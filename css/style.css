@@ -7,13 +7,13 @@ body {
     min-width: 550px;
 }
 
-main {
+header {
 	margin: 0;
 	padding: 0;
 }
 
 /* ------------------ Styles for the Score Panel ------------------ */
-footer {
+main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -22,7 +22,7 @@ footer {
 .score-panel {
     text-align: left;
     width: 380px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
 }
@@ -44,18 +44,28 @@ footer {
 }
 
 .fa-heart.lost {
-    /*visibility: hidden;*/
     color: #440000;
 }
 
-
 .instructions {
-	border-top: 1px solid #ffffff;
-    padding: 0 30px;
+    width: 640px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    color: #bbb;
+    padding: 0 10px 10px 20px;
+    text-align: left;
 }
+
 .inst {
 	font-size: 0.8em;
 	text-align: left;
+}
+
+/* ------------- FOOTER ------------*/
+footer {
+    color: PaleGreen;
+    font-size: 0.75em;
+    margin: 30px 0 0 0;
 }
 
 /* ------------ Popup congratulations message ---------------- */
