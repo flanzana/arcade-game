@@ -62,7 +62,7 @@ Player.prototype.update = function() {
             lifeCount = 3;
             winCount = 0;
             document.getElementById("moves").innerHTML = winCount;
-            document.getElementById("lajf").innerHTML = lifeCount;
+            resetLife();
         }
     }, 500);
 };
@@ -123,8 +123,7 @@ function collisionWithPlayer() {
 
             // for each collision, you lost one life. when you lose all 3 lives, game over
             lifeCount -= 1;
-            document.getElementById("lajf").innerHTML = lifeCount;
-            //removeLife();
+            removeLife();
             console.log(`Lives: ${lifeCount}`);
             setTimeout(function() {
                 if (lifeCount === 0) {
@@ -132,30 +131,31 @@ function collisionWithPlayer() {
                     lifeCount = 3;
                     winCount = 0;
                     document.getElementById("moves").innerHTML = winCount;
-                    document.getElementById("lajf").innerHTML = lifeCount;
-
+                    resetLife();
                 }
             }, 500);
         }
     })
 }
 
-/*
-// lives
+
+// lives - everytime enemy hits player, player lose one life
 function removeLife() {
     if (lifeCount == 2) {
-        document.querySelector(".fa-heart:last-of-type").classList.remove("fa-heart");
+        document.querySelector(".heart3").classList.add("lost");
     } else if (lifeCount == 1) {
-        document.querySelector(".fa-heart:last-of-type").classList.remove("fa-heart");
+        document.querySelector(".heart2").classList.add("lost");
     } else if (lifeCount == 0) {
-        document.querySelector(".fa-heart:last-of-type").classList.remove("fa-heart");
+        document.querySelector(".heart1").classList.add("lost");
     }
 }
 
 function resetLife() {
-    document.querySelector(".fa-heart:last-of-type").classList.append("fa-heart");
+    document.querySelector(".heart1").classList.remove("lost");
+    document.querySelector(".heart2").classList.remove("lost");
+    document.querySelector(".heart3").classList.remove("lost");
 }
-*/
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

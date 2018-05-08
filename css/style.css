@@ -25,7 +25,7 @@ footer {
     display: flex;
     justify-content: space-between;
 }
-/*
+
 .hearts {
     margin: 0;
     padding: 0;
@@ -36,11 +36,15 @@ footer {
 .hearts li {
     list-style: none;
     display: inline-block;
-    color: Red;
 }
-*/
+
 .fa-heart {
     color: Red;
+}
+
+.fa-heart.lost {
+    /*visibility: hidden;*/
+    color: #440000;
 }
 
 
