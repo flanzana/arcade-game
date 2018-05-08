@@ -169,6 +169,10 @@ function resetGame() {
 }
 
 function showModal() {
+    // unable to move player when modal is displayed
+    document.removeEventListener('keyup', playerHandleKeys);
+
+    //show modal
     var modal = document.getElementById("modal");
     modal.classList.remove("hide");
 
@@ -178,12 +182,16 @@ function showModal() {
         document.querySelector(".win-mes").classList.add("hide");
         document.querySelector(".lose-mes").classList.add("hide");
         resetGame();
+        // enable to move player again
+        document.addEventListener('keyup', playerHandleKeys);
     }
 }
 
 
 // This listens for key presses and sends the keys to your Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
+document.addEventListener('keyup', playerHandleKeys);
+
+function playerHandleKeys(e) {
     var allowedKeys = {
         37: 'left',
         38: 'up',
@@ -192,4 +200,4 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
-});
+}
