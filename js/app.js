@@ -25,10 +25,10 @@ Enemy.prototype.update = function(dt) {
         // change speed of enemy when enemy start again from the left
         // max speed can be 250, if speed more than 250, put it back to 90
         this.v = (this.v * Math.random() + 90);
-        if (this.v > 250) {
+        if (this.v > 240) {
             this.v = 90
         }
-        console.log(this.v);
+        //console.log(this.v);
     }
 
     // Handles collision with the Player
@@ -136,8 +136,8 @@ function removeLife() {
     // When player loses all three lives, the game is over.
     setTimeout(function() {
         if (lifeCount === 0) {
-            alert("Sorry, you lost all your lives. Play again?");
-            resetGame();
+            document.querySelector(".lose-mes").classList.remove("hide");
+            showModal();
         }
     }, 500);
 }
@@ -151,8 +151,8 @@ function addWin() {
     // When the player reaches water 10 times, player wins the game.
     setTimeout(function() {
         if (winCount === 10) {
-            alert("Congratulations, you are a master of this game! Play again?");
-            resetGame();
+            document.querySelector(".win-mes").classList.remove("hide");
+            showModal();
         }
     }, 500);
 }
@@ -166,6 +166,19 @@ function resetGame() {
     document.querySelector(".heart1").classList.remove("lost");
     document.querySelector(".heart2").classList.remove("lost");
     document.querySelector(".heart3").classList.remove("lost");
+}
+
+function showModal() {
+    var modal = document.getElementById("modal");
+    modal.classList.remove("hide");
+
+    // when click on button play again, start new game
+    document.getElementById("play-again").onclick = function() {
+        modal.classList.add("hide");
+        document.querySelector(".win-mes").classList.add("hide");
+        document.querySelector(".lose-mes").classList.add("hide");
+        resetGame();
+    }
 }
 
 
