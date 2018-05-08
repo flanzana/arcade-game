@@ -157,17 +157,6 @@ function addWin() {
     }, 500);
 }
 
-// reset the game (put back 3 lifes and put moves to 0)
-function resetGame() {
-    winCount = 0;
-    document.getElementById("moves").innerHTML = winCount;
-
-    lifeCount = 3;
-    document.querySelector(".heart1").classList.remove("lost");
-    document.querySelector(".heart2").classList.remove("lost");
-    document.querySelector(".heart3").classList.remove("lost");
-}
-
 function showModal() {
     // unable to move player when modal is displayed
     document.removeEventListener('keyup', playerHandleKeys);
@@ -178,13 +167,27 @@ function showModal() {
 
     // when click on button play again, start new game
     document.getElementById("play-again").onclick = function() {
-        modal.classList.add("hide");
-        document.querySelector(".win-mes").classList.add("hide");
-        document.querySelector(".lose-mes").classList.add("hide");
-        resetGame();
-        // enable to move player again
-        document.addEventListener('keyup', playerHandleKeys);
+        resetAndPlayAgain();
     }
+}
+
+function resetAndPlayAgain() {
+    // hide modal
+    modal.classList.add("hide");
+    document.querySelector(".win-mes").classList.add("hide");
+    document.querySelector(".lose-mes").classList.add("hide");
+
+    // put back 3 lifes and put moves to 0
+    winCount = 0;
+    document.getElementById("moves").innerHTML = winCount;
+
+    lifeCount = 3;
+    document.querySelector(".heart1").classList.remove("lost");
+    document.querySelector(".heart2").classList.remove("lost");
+    document.querySelector(".heart3").classList.remove("lost");
+
+    // enable to move player again with keyboard
+    document.addEventListener("keyup", playerHandleKeys);
 }
 
 
