@@ -5,18 +5,17 @@ var Enemy = function(x, y, v) {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 
-    // --Setting the Enemy initial location (you need to implement)
+    // Setting the Enemy initial location
     this.x = x;
     this.y = y;
 
-    // --Setting the Enemy speed (you need to implement)
+    // Setting the Enemy speed
     this.v = v;
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // --Updates the Enemy location (you need to implement)
     //enemy will change x coordinate depending on speed, while y coordinate stays always the same
     this.x += this.v * dt;
 
@@ -25,7 +24,7 @@ Enemy.prototype.update = function(dt) {
         this.x = -101;
     }
 
-    // --Handles collision with the Player (you need to implement)
+    // Handles collision with the Player
     collisionWithPlayer();
 };
 
@@ -36,43 +35,30 @@ Enemy.prototype.render = function() {
 
 // ------------------------------------ P L A Y E R ----------------------------------------
 var Player = function(x, y) {
-    // --Loading the image by setting this.sprite to the appropriate image in the image folder
+    // Loading the image by setting this.sprite to the appropriate image in the image folder
     this.sprite = 'images/char-boy.png';
 
-    // --Setting the Player initial location
+    // Setting the Player initial location
     this.x = x;
     this.y = y;
 };
 
-// --The update method for the Player (can be similar to the one for the Enemy)
+// The update method for the Player
 Player.prototype.update = function() {
-    // when player reaches water, move player back to initial location
+    // when player reaches water, display number of wins and move player back to initial location
     if (this.y === -15) {
         player.x = 202;
         player.y = 400;
-        winCount = winCount + 1;
-        console.log(`Win: ${winCount}`);
-        document.getElementById("moves").innerHTML = winCount;
+        addWin();
     }
-
-    // for each reaching water, you win. when you win 10 times in a row, you win the game
-    setTimeout(function() {
-        if (winCount === 10) {
-            alert("Congratulations, you are a master of this game! Play again?");
-            lifeCount = 3;
-            winCount = 0;
-            document.getElementById("moves").innerHTML = winCount;
-            resetLife();
-        }
-    }, 500);
 };
 
-// --The render method for the Player (use the code from the render method for the Enemy)
+// The render method for the Player
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// --The handleInput method, which should receive user input, allowedKeys (the key which was pressed) and move the player according to that input.
+// The handleInput method, which should receive user input, allowedKeys (the key which was pressed) and move the player according to that input.
 Player.prototype.handleInput = function(move) {
     // one cell is 101 width and 83 height: the most bottom y 400, top y -15 (400-83*5), left x 0 and right x 404 (4*101)
     // when player in water (this.y > 0), it not possible to move to any direction
@@ -108,7 +94,7 @@ var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
 var lifeCount = 3;
 var winCount = 0;
 
-// --Handles collision Enemy with the Player (you need to implement)
+// Handles collision Enemy with the Player
 // help from https://stackoverflow.com/questions/2440377/javascript-collision-detection
 function collisionWithPlayer() {
     allEnemies.forEach(function(enemy) {
@@ -122,25 +108,16 @@ function collisionWithPlayer() {
             player.y = 400;
 
             // for each collision, you lost one life. when you lose all 3 lives, game over
-            lifeCount -= 1;
             removeLife();
-            console.log(`Lives: ${lifeCount}`);
-            setTimeout(function() {
-                if (lifeCount === 0) {
-                    alert("Sorry, you lost all your lives. Play again?");
-                    lifeCount = 3;
-                    winCount = 0;
-                    document.getElementById("moves").innerHTML = winCount;
-                    resetLife();
-                }
-            }, 500);
         }
     })
 }
 
-
 // lives - everytime enemy hits player, player lose one life
 function removeLife() {
+    lifeCount -= 1;
+    console.log(`Lives: ${lifeCount}`);
+
     if (lifeCount == 2) {
         document.querySelector(".heart3").classList.add("lost");
     } else if (lifeCount == 1) {
@@ -148,17 +125,44 @@ function removeLife() {
     } else if (lifeCount == 0) {
         document.querySelector(".heart1").classList.add("lost");
     }
+
+    // When player loses all three lives, the game is over.
+    setTimeout(function() {
+        if (lifeCount === 0) {
+            alert("Sorry, you lost all your lives. Play again?");
+            resetGame();
+        }
+    }, 500);
 }
 
-function resetLife() {
+// function to count and display many times player reaches the water
+function addWin() {
+    winCount = winCount + 1;
+    console.log(`Win: ${winCount}`);
+    document.getElementById("moves").innerHTML = winCount;
+
+    // When the player reaches water 10 times, player wins the game.
+    setTimeout(function() {
+        if (winCount === 10) {
+            alert("Congratulations, you are a master of this game! Play again?");
+            resetGame();
+        }
+    }, 500);
+}
+
+// reset the game (put back 3 lifes and put moves to 0)
+function resetGame() {
+    winCount = 0;
+    document.getElementById("moves").innerHTML = winCount;
+
+    lifeCount = 3;
     document.querySelector(".heart1").classList.remove("lost");
     document.querySelector(".heart2").classList.remove("lost");
     document.querySelector(".heart3").classList.remove("lost");
 }
 
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// This listens for key presses and sends the keys to your Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
