@@ -13,7 +13,7 @@ var Enemy = function(x, y, v) {
     this.v = v;
 };
 
-// Update the enemy's position, required method for game
+// Update the enemy's position and speed
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     //enemy will change x coordinate depending on speed, while y coordinate stays always the same
@@ -22,6 +22,13 @@ Enemy.prototype.update = function(dt) {
     //when enemy goes off screen on right, put it back on the beginning
     if (this.x > 505) {
         this.x = -101;
+        // change speed of enemy when enemy start again from the left
+        // max speed can be 250, if speed more than 250, put it back to 90
+        this.v = (this.v * Math.random() + 90);
+        if (this.v > 250) {
+            this.v = 90
+        }
+        console.log(this.v);
     }
 
     // Handles collision with the Player
